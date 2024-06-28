@@ -29,6 +29,7 @@
     <!-- MASTER NODE! -->
 <!--    <node name="ov_msckf" pkg="ov_msckf" type="run_subscribe_msckf" output="screen" clear_params="true" required="true" launch-prefix="gdb -ex run &#45;&#45;args">-->
     <node name="ov_msckf" pkg="ov_msckf" type="run_subscribe_msckf" output="screen" clear_params="true" required="true">
+        <!--<remap from="/ov_msckf/odomimu" to ="/mavros/odometry/out"/>-->
 
         <!-- master configuration object -->
         <param name="verbosity"              type="string" value="$(arg verbosity)" />
@@ -43,7 +44,7 @@
         <param name="record_timing_filepath"      type="string" value="$(arg path_time)" />
 
     </node>
-
+    
     <!-- play the dataset -->
     <group if="$(arg dobag)">
         <node pkg="rosbag" type="play" name="rosbag" args="-d 1 -r $(arg bag_rate) -s $(arg bag_start) $(arg bag)" required="true"/>

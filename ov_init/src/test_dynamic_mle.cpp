@@ -563,13 +563,13 @@ int main(int argc, char **argv) {
         // Pose states
         nav_msgs::Path arrEST, arrGT;
         arrEST.header.stamp = ros::Time::now();
-        arrEST.header.frame_id = "global";
+        arrEST.header.frame_id = "map";
         arrGT.header.stamp = ros::Time::now();
-        arrGT.header.frame_id = "global";
+        arrGT.header.frame_id = "map";
         for (auto &statepair : map_states) {
           geometry_msgs::PoseStamped poseEST, poseGT;
           poseEST.header.stamp = ros::Time(statepair.first);
-          poseEST.header.frame_id = "global";
+          poseEST.header.frame_id = "map";
           poseEST.pose.orientation.x = ceres_vars_ori[statepair.second][0];
           poseEST.pose.orientation.y = ceres_vars_ori[statepair.second][1];
           poseEST.pose.orientation.z = ceres_vars_ori[statepair.second][2];
@@ -581,7 +581,7 @@ int main(int argc, char **argv) {
           bool success = sim.get_state(statepair.first + sim.get_true_parameters().calib_camimu_dt, gt_imustate);
           assert(success);
           poseGT.header.stamp = ros::Time(statepair.first);
-          poseGT.header.frame_id = "global";
+          poseGT.header.frame_id = "map";
           poseGT.pose.orientation.x = gt_imustate(1);
           poseGT.pose.orientation.y = gt_imustate(2);
           poseGT.pose.orientation.z = gt_imustate(3);
@@ -597,7 +597,7 @@ int main(int argc, char **argv) {
 
         // Features ESTIMATES pointcloud
         sensor_msgs::PointCloud point_cloud;
-        point_cloud.header.frame_id = "global";
+        point_cloud.header.frame_id = "map";
         point_cloud.header.stamp = ros::Time::now();
         for (auto &featpair : map_features) {
           if (map_features_delayed.find(featpair.first) != map_features_delayed.end())
@@ -612,7 +612,7 @@ int main(int argc, char **argv) {
 
         // Features GROUNDTRUTH pointcloud
         sensor_msgs::PointCloud2 cloud;
-        cloud.header.frame_id = "global";
+        cloud.header.frame_id = "map";
         cloud.header.stamp = ros::Time::now();
         cloud.width = map_features.size();
         cloud.height = 1;

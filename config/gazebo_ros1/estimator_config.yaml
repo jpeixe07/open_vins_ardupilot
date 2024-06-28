@@ -1,6 +1,6 @@
 %YAML:1.0 # need to specify the file type at the top!
 
-verbosity: "INFO" # ALL, DEBUG, INFO, WARNING, ERROR, SILENT
+verbosity: "DEBUG" # ALL, DEBUG, INFO, WARNING, ERROR, SILENT
 
 use_fej: true # if first-estimate Jacobians should be used (enable for good consistency)
 integration: "rk4" # discrete, rk4, analytical (if rk4 or analytical used then analytical covariance propagation is used)
@@ -10,8 +10,8 @@ max_cameras: 2 # how many cameras we have 1 = mono, 2 = stereo, >2 = binocular (
 calib_cam_extrinsics: true # if the transform between camera and IMU should be optimized R_ItoC, p_CinI
 calib_cam_intrinsics: true # if camera intrinsics should be optimized (focal, center, distortion)
 calib_cam_timeoffset: true # if timeoffset between camera and IMU should be optimized
-calib_imu_intrinsics: false # if imu intrinsics should be calibrated (rotation and skew-scale matrix)
-calib_imu_g_sensitivity: false # if gyroscope gravity sensitivity (Tg) should be calibrated
+calib_imu_intrinsics: true # if imu intrinsics should be calibrated (rotation and skew-scale matrix)
+calib_imu_g_sensitivity: true # if gyroscope gravity sensitivity (Tg) should be calibrated
 
 max_clones: 11 # how many clones in the sliding window
 max_slam: 50 # number of features in our state vector
@@ -27,7 +27,7 @@ feat_rep_aruco: "ANCHORED_MSCKF_INVERSE_DEPTH"
 
 # zero velocity update parameters we can use
 # we support either IMU-based or disparity detection.
-try_zupt: false
+try_zupt: true
 zupt_chi2_multipler: 0 # set to 0 for only disp-based
 zupt_max_velocity: 0.1
 zupt_noise_multiplier: 10
@@ -42,7 +42,7 @@ init_imu_thresh: 1.5 # threshold for variance of the accelerometer to detect a "
 init_max_disparity: 10.0 # max disparity to consider the platform stationary (dependent on resolution)
 init_max_features: 50 # how many features to track during initialization (saves on computation)
 
-init_dyn_use: false # if dynamic initialization should be used
+init_dyn_use: true # if dynamic initialization should be used
 init_dyn_mle_opt_calib: false # if we should optimize calibration during intialization (not recommended)
 init_dyn_mle_max_iter: 50 # how many iterations the MLE refinement should use (zero to skip the MLE)
 init_dyn_mle_max_time: 0.05 # how many seconds the MLE should be completed in
@@ -78,13 +78,13 @@ filepath_gt: "/tmp/ov_groundtruth.txt"
 # our front-end feature tracking parameters
 # we have a KLT and descriptor based (KLT is better implemented...)
 use_klt: true # if true we will use KLT, otherwise use a ORB descriptor + robust matching
-num_pts: 200 # number of points (per camera) we will extract and try to track
+num_pts: 250 # number of points (per camera) we will extract and try to track
 fast_threshold: 20 # threshold for fast extraction (warning: lower threshs can be expensive)
 grid_x: 5 # extraction sub-grid count for horizontal direction (uniform tracking)
 grid_y: 5 # extraction sub-grid count for vertical direction (uniform tracking)
 min_px_dist: 10 # distance between features (features near each other provide less information)
 knn_ratio: 0.70 # descriptor knn threshold for the top two descriptor matches
-track_frequency: 21.0 # frequency we will perform feature tracking at (in frames per second / hertz)
+track_frequency: 31.0 # frequency we will perform feature tracking at (in frames per second / hertz)
 downsample_cameras: false # will downsample image in half if true
 num_opencv_threads: 4 # -1: auto, 0-1: serial, >1: number of threads
 histogram_method: "HISTOGRAM" # NONE, HISTOGRAM, CLAHE
