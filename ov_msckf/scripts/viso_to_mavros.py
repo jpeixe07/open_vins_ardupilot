@@ -33,8 +33,13 @@ class OdomRepublisher:
             #     [-0.0026359611770076655, 0.0013216584784356434, -0.9999956524543192, 0],
             #     [0.0, 0.0, 0.0, 1.0]
             # ])
+            ninety_degree_rotation = np.array([[0, 1, 0, 0],
+                                              [-1, 0, 0, 0],
+                                              [0, 0, 1, 0],
+                                              [0, 0, 0, 1]])
             new_rotation_matrix = np.dot(flip_matrix, rotation_matrix)
-    
+
+            new_rotation_matrix = np.dot(ninety_degree_rotation, new_rotation_matrix)
             # Converter a matriz de rotação de volta para um quaternião
             new_q = quaternion_from_matrix(new_rotation_matrix)
             data.pose.pose.orientation = Quaternion(*new_q)
@@ -50,6 +55,10 @@ class OdomRepublisher:
             #y cresce pra tras
             data.pose.pose.position.x = -data.pose.pose.position.x
             data.pose.pose.position.y = -data.pose.pose.position.y
+            old_x = data.pose.pose.position.x
+            old_y = data.pose.pose.position.y
+            data.pose.pose.position.x = -old_y
+            data.pose.pose.position.y = old_x
             #d1ata.pose.pose.position.z = -data.pose.pose.position.z
 
             # Inverter os sentidos dos eixos x e y da velocidade linear e angular
