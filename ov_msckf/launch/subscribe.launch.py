@@ -16,6 +16,9 @@ launch_args = [
         name="rviz_enable", default_value="false", description="enable rviz node"
     ),
     DeclareLaunchArgument(
+        name="repub_enable", default_value="true", description="enable odom_republisher node"  
+    ),
+    DeclareLaunchArgument(
         name="config",
         default_value="euroc_mav",
         description="euroc_mav, tum_vi, rpng_aruco...",
@@ -74,6 +77,8 @@ def launch_setup(context):
                         config_path)
                     )
             ]
+    
+    # OpenVINS Node
     node1 = Node(
         package="ov_msckf",
         executable="run_subscribe_msckf",
@@ -89,6 +94,7 @@ def launch_setup(context):
         ],
     )
 
+    # RViz Node
     node2 = Node(
         package="rviz2",
         executable="rviz2",
@@ -104,7 +110,16 @@ def launch_setup(context):
             ],
     )
 
-    return [node1, node2]
+    # Odom Republisher Node
+    node3 = Node(
+        package="ov_repub",
+        executable="odom_republisher",
+        condition=IfCondition(LaunchConfiguration("repub_enable")), 
+        namespace=LaunchConfiguration("namespace"),
+        output="screen",
+    )
+
+    return [node1, node2, node3]  
 
 
 def generate_launch_description():
