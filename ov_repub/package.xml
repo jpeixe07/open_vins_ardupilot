@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>ov_repub</name>
+  <version>0.0.0</version>
+  <description>Package to republish Odometry messages with modified orientation</description>
+  <maintainer email="jetson@todo.todo">jetson</maintainer>
+  <license>TODO: License declaration</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <build_depend>rclcpp</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>Eigen3</build_depend>
+
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>Eigen3</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
