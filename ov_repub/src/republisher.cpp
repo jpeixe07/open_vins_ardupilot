@@ -123,7 +123,7 @@ private:
 int main(int argc, char * argv[])
 {
     rclcpp::init(argc, argv);
-    auto node = std::make_shared<OdomRepublisher>("/ov_msckf/odomimu", "/drone1/mavros/odometry/out", false);
+    auto node = std::make_shared<OdomRepublisher>("/ov_msckf/odomimu", "/mavros/odometry/out", false);
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;
