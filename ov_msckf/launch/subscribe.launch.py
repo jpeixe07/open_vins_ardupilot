@@ -119,7 +119,7 @@ def launch_setup(context):
         output="screen",
     )
 
-    return [node1, node2, node3]  
+    return [node1, node2]  
 
 
 def generate_launch_description():
