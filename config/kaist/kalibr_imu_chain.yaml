@@ -2,21 +2,18 @@
 
 imu0:
   T_i_b:
-    - [1.0, 0.0, 0.0, 0.0]
-    - [0.0, 1.0, 0.0, 0.0]
-    - [0.0, 0.0, 1.0, 0.0]
-    - [0.0, 0.0, 0.0, 1.0]
-  accelerometer_noise_density: 0.00963720553072862
-  accelerometer_random_walk: 0.0006123796014648734
-  gyroscope_noise_density: 0.00036456264252212857
-  gyroscope_random_walk: 2.5657300952100024e-05
+   - [1.0, 0.0, 0.0, 0.0]
+   - [0.0, 1.0, 0.0, 0.0]
+   - [0.0, 0.0, 1.0, 0.0]
+   - [0.0, 0.0, 0.0, 1.0]
+  accelerometer_noise_density: 0.0346163655526768
+  accelerometer_random_walk: 4.9883447914096645e-04
+  gyroscope_noise_density: 0.0010960371012783909
+  gyroscope_random_walk: 4.887705564345186e-05
   rostopic: /mavros/imu/data_raw
   time_offset: 0.0
-  update_rate: 100.0
-  # three different modes supported:
-  # "calibrated" (same as "kalibr"), "kalibr", "rpng"
-  model: "kalibr"
-  # how to get from Kalibr imu.yaml result file:
+  update_rate: 200.0 
+  model: "kalibr" # how to get from Kalibr imu.yaml result file:
   #   - Tw is imu0:gyroscopes:M:
   #   - R_IMUtoGYRO: is imu0:gyroscopes:C_gyro_i:
   #   - Ta is imu0:accelerometers:M:
