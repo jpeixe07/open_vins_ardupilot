@@ -13,10 +13,10 @@ public:
     OdomRepublisher(const std::string & input_topic, const std::string & output_topic, bool is_correct)
         : Node("republisher"), is_correct_(is_correct)
     {
-        pub_ = this->create_publisher<nav_msgs::msg::Odometry>(output_topic, 10);
+        pub_ = this->create_publisher<nav_msgs::msg::Odometry>(output_topic, 1);
         subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(
             input_topic,
-            10,
+            1,
             [this](const nav_msgs::msg::Odometry::SharedPtr msg) { this->callback(msg); });
         // publish at 20 Hz
         timer_ = this->create_wall_timer(std::chrono::milliseconds(50), std::bind(&OdomRepublisher::timer_callback, this));
